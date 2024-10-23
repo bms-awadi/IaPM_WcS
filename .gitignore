@@ -1,2 +1,6 @@
 /node_modules
+# Ignorer mon environnement virtuel
 /env_wcs
+
+# Ignorer tous les fichiers cachés
+.*
