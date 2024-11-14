@@ -6,4 +6,4 @@ Pour répondre à ce challenge, je propose **Duolingo** que j'utilise beaucoup, 
 - **Feedback immédiat** : Duolingo fournit des retours instantanés (correct ou incorrect) avec des explications, ce qui aide l'utilisateur à s'améliorer immédiatement.
 - **Accessibilité** : Le design est conçu pour être utilisé par tout le monde, avec des contrastes de couleurs appropriés et des icônes reconnaissables, facilitant l'utilisation même pour les débutants en technologie.
 
-**Lien vers la solution** : http://www.duolingo.com
+**Lien** : http://www.duolingo.com
