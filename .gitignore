@@ -4,3 +4,5 @@
 
 # Ignorer tous les fichiers cachés
 .*
+bokeh_html/
+Plotly_html/
