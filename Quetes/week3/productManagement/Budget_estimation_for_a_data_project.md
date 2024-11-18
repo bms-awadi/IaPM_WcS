@@ -54,4 +54,8 @@ Développement d’un outil d’analyse de sentiment pour analyser les retours c
 
 ---
 
+<<<<<<< HEAD
 ### **Budget Total du Projet** : 75 350 $
+=======
+### **Budget Total du Projet** : 75 350 $
+>>>>>>> 73b3d97 (b)
