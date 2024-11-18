@@ -55,5 +55,3 @@ Développement d’un outil d’analyse de sentiment pour analyser les retours c
 ---
 
 ### **Budget Total du Projet** : 75 350 $
-
-Ce plan de budget fournit une allocation structurée des fonds, en utilisant des techniques d'estimation détaillées et analogiques, avec une réserve de contingence pour assurer flexibilité et gestion des risques financiers.
