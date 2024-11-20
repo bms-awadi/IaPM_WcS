@@ -63,8 +63,8 @@ db.clients.insertMany([
 ]);
 ```
 
-1. Chaque champ `_id` utilise un `ObjectId` valide de 24 caractères hexadécimaux.
-2. Ces identifiants doivent être uniques dans la collection pour éviter des conflits.
+- Chaque champ `_id` utilise un `ObjectId` valide de 24 caractères hexadécimaux.
+- Ces identifiants doivent être uniques dans la collection pour éviter des conflits.
 
 ### **Résultat attendu**
 Après l'insertion, on peut vérifier les documents ajoutés avec la commande suivante :
