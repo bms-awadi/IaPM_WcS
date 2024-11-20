@@ -189,12 +189,12 @@ db.restaurants.aggregate( [ varUnwind, varGroup4, varSort2 ] );
 C'est une requête d'agrégation qui calcule la moyenne des scores pour chaque **quartier** (`borough`) en procédant par étapes :
 
 
-### **1. `varUnwind = { $unwind: "$grades" }`**
+#### **1. `varUnwind = { $unwind: "$grades" }`**
 
 - **Action** : Cette étape "décompose" le tableau `grades` en plusieurs documents. Si un restaurant possède plusieurs entrées dans `grades`, un document sera créé pour chaque élément.
 - **But** : Permet de traiter chaque score individuellement.
 
-#### Exemple :
+##### Exemple :
 Avant `$unwind`, un restaurant avec plusieurs `grades` pourrait ressembler à ceci :
 ```json
 {
@@ -213,23 +213,17 @@ Après `$unwind`, il est décomposé en deux documents :
 { "name": "Restaurant A", "borough": "Brooklyn", "grades": { "score": 20 } }
 ```
 
-### **2. `varGroup4 = { $group: { "_id": "$borough", "moyenne": { $avg: "$grades.score" } } }`**
+#### **2. `varGroup4 = { $group: { "_id": "$borough", "moyenne": { $avg: "$grades.score" } } }`**
 
 - **Action** : Regroupe les documents décomposés par **quartier** (`borough`) et calcule la **moyenne** des scores.
   - **`_id`** : Identifie le groupe (ici, chaque quartier).
   - **`$avg`** : Calcule la moyenne des scores pour chaque groupe.
 
-#### Exemple :
-Pour tous les documents où `borough = "Brooklyn"`, il calcule :
-```json
-"moyenne": somme_des_scores / nombre_de_scores
-```
-
-### **3. `varSort2 = { $sort: { "moyenne": -1 } }`**
+#### **3. `varSort2 = { $sort: { "moyenne": -1 } }`**
 
 - **Action** : Trie les résultats par la **moyenne des scores** en ordre décroissant (`-1`).
 
-#### Exemple :
+##### Exemple :
 Si les moyennes sont :
 ```json
 { "_id": "Queens", "moyenne": 11.63 }
@@ -242,7 +236,7 @@ Le résultat final est trié de manière décroissante :
 { "_id": "Brooklyn", "moyenne": 11.44 }
 ```
 
-### **4. `db.restaurants.aggregate([varUnwind, varGroup4, varSort2])`**
+#### **4. `db.restaurants.aggregate([varUnwind, varGroup4, varSort2])`**
 
 - **Action globale** : Applique les trois étapes dans l'ordre :
   1. Décompose les tableaux `grades` en documents individuels (`$unwind`).
@@ -250,7 +244,7 @@ Le résultat final est trié de manière décroissante :
   3. Trie les moyennes en ordre décroissant (`$sort`).
 
 
-### **Résumé :** 
+##### **Résumé :** 
 
 Ce que le code fait globalement :
 1. Décompose les scores de chaque restaurant (`$unwind`).
