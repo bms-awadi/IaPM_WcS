@@ -27,7 +27,17 @@ use mabdd;
 
 Cela va soit créer une nouvelle base de données nommée `mabdd`, soit la sélectionner si elle existe déjà. Notez que MongoDB ne crée la base de données que lorsque des collections et des données y sont ajoutées.
 
-## 3. Créer une Collection
+## 3. Switcher entre Bases de Données
+
+Pour passer d'une base de données à une autre dans le shell MongoDB, utilisez simplement la commande `use`.
+
+```javascript
+use autre_base_de_donnees;
+```
+
+Cela vous permet de changer de contexte vers une autre base de données.
+
+## 4. Créer une Collection
 
 Pour créer une nouvelle collection, on peut insérer un document directement. Par exemple, pour créer une collection `restaurants`, on utilise :
 
@@ -35,12 +45,12 @@ Pour créer une nouvelle collection, on peut insérer un document directement. P
 db.createCollection("restaurants");
 ```
 
-## 4. Importer des Données depuis un Fichier JSON
+## 5. Importer des Données depuis un Fichier JSON
 
 Pour importer des données à partir d'un fichier JSON, vous pouvez utiliser l'outil `mongoimport` dans le terminal. Pour le fichier `restaurants.json`, on l'importe ainsi :
 
 ```sh
-mongoimport --db mabaseded --collection rest --file /Users/abedja/IaPM_WcS/Quetes/week3/mongoDB/restaurants.json
+mongoimport --db mabdd --collection restaurants --file /Users/abedja/IaPM_WcS/Quetes/week3/mongoDB/restaurants.json
 ```
 
 Cela ajoutera toutes les entrées du fichier JSON dans la collection `restaurants` de la base de données `mabdd`. Ne pas oublier de spécifier le chemin vers le fichier.
@@ -51,23 +61,19 @@ Cela ajoutera toutes les entrées du fichier JSON dans la collection `restaurant
 - `--file restaurants.json` : Chemin vers le fichier JSON contenant les données à importer.
 
 
-## 5. Switcher entre Bases de Données
-
-Pour passer d'une base de données à une autre dans le shell MongoDB, utilisez simplement la commande `use`.
-
-```javascript
-use autre_base_de_donnees;
-```
-
-Cela vous permet de changer de contexte vers une autre base de données.
-
 ## 6. Requêtes MongoDB
 
+### Affichage pour voir que c'est bien importer
+```javascript
+db.restaurants.find().limit(1).pretty();
+```
+![Affichage](1im.png)
 ###  Compter le Nombre de Restaurants avec un Grade A
 
 ```javascript
 db.restaurants.countDocuments({ "grades.grade": "A" });
 ```
+![Nombre](2im.png)
 
 ### Lister tous les Scores des Restaurants en Ordre Décroissant
 
@@ -84,7 +90,7 @@ db.restaurants.aggregate([
 ]);
 
 ```
-
+![Nombre](3im.png)
 **Remarque :** Limite à 10 résultats dans la sortie
 
 ### Trouver les Restaurants avec des Noms de Villes Commencant par "B", "C" ou "D"
@@ -98,6 +104,7 @@ db.restaurants.find({
 }).limit(5).pretty();
 
 ```
+
 **Remarque** : on peut afficher seulement certains champs par exemple :
 ```javascript
 db.restaurants.find(
@@ -110,6 +117,7 @@ db.restaurants.find(
   { name: 1, "address.street": 1, borough: 1, _id: 0 }
 ).limit(5).pretty();
 ```
+![Nombre](4im.png)
 
 ### Afficher les Restaurants avec un Score Spécifique
 
@@ -127,10 +135,10 @@ db.restaurants.find({
       }
     ]
   }
-}).pretty();
+}).limit(1).pretty();
 
 ```
-
+![Nombre](5im.png)
 
 ### Nombre de Restaurants par Type de Cuisine
 
@@ -148,6 +156,7 @@ db.restaurants.aggregate([
 ]).pretty();
 
 ```
+![Nombre](6im.png)
 
 ### Ajouter un Commentaire aux Boroughs Ne Commencant pas par "B"
 
@@ -158,7 +167,7 @@ db.restaurants.updateMany(
 );
 
 ```
-
+![Nombre](7im.png)
 ### Supprimer la Clé "address" des Restaurants ayant un Score Supérieur à 25
 
 ```javascript
@@ -167,7 +176,7 @@ db.restaurants.updateMany(
   { $unset: { address: "" } }
 );
 ```
-
+![Nombre](8im.png)
 ### Supprimer les Restaurants dont le Borough est "Queens"
 
 ```javascript
@@ -176,6 +185,7 @@ db.restaurants.deleteMany({
 });
 
 ```
+![Nombre](9im.png)
 
 ### Commentaire du code suivant
 
