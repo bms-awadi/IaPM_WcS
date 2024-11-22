@@ -67,13 +67,13 @@ Cela ajoutera toutes les entrées du fichier JSON dans la collection `restaurant
 ```javascript
 db.restaurants.find().limit(1).pretty();
 ```
-![Affichage](1im.png)
+![Affichage](imgs/1im.png)
 ###  Compter le Nombre de Restaurants avec un Grade A
 
 ```javascript
 db.restaurants.countDocuments({ "grades.grade": "A" });
 ```
-![Nombre](2im.png)
+![Nombre](imgs/2im.png)
 
 ### Lister tous les Scores des Restaurants en Ordre Décroissant
 
@@ -90,7 +90,7 @@ db.restaurants.aggregate([
 ]);
 
 ```
-![Nombre](3im.png)
+![Nombre](imgs/3im.png)
 **Remarque :** Limite à 10 résultats dans la sortie
 
 ### Trouver les Restaurants avec des Noms de Villes Commencant par "B", "C" ou "D"
@@ -117,7 +117,7 @@ db.restaurants.find(
   { name: 1, "address.street": 1, borough: 1, _id: 0 }
 ).limit(5).pretty();
 ```
-![Nombre](4im.png)
+![Nombre](imgs/4im.png)
 
 ### Afficher les Restaurants avec un Score Spécifique
 
@@ -138,7 +138,7 @@ db.restaurants.find({
 }).limit(1).pretty();
 
 ```
-![Nombre](5im.png)
+![Nombre](imgs/5im.png)
 
 ### Nombre de Restaurants par Type de Cuisine
 
@@ -156,7 +156,7 @@ db.restaurants.aggregate([
 ]).pretty();
 
 ```
-![Nombre](6im.png)
+![Nombre](imgs/6im.png)
 
 ### Ajouter un Commentaire aux Boroughs Ne Commencant pas par "B"
 
@@ -167,7 +167,7 @@ db.restaurants.updateMany(
 );
 
 ```
-![Nombre](7im.png)
+![Nombre](imgs/7im.png)
 ### Supprimer la Clé "address" des Restaurants ayant un Score Supérieur à 25
 
 ```javascript
@@ -176,7 +176,7 @@ db.restaurants.updateMany(
   { $unset: { address: "" } }
 );
 ```
-![Nombre](8im.png)
+![Nombre](imgs/8im.png)
 ### Supprimer les Restaurants dont le Borough est "Queens"
 
 ```javascript
@@ -185,7 +185,7 @@ db.restaurants.deleteMany({
 });
 
 ```
-![Nombre](9im.png)
+![Nombre](imgs/9im.png)
 
 ### Commentaire du code suivant
 

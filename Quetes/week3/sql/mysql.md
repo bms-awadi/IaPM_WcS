@@ -1,20 +1,20 @@
-Si vous passez à **DB Browser for SQLite**, c'est une excellente alternative pour travailler avec SQLite. Voici un guide détaillé pour configurer vos bases de données et exécuter vos commandes avec DB Browser :
+# SQL : Conception avec Merise
+
+Cette quête est faite avec **DB Browser for SQLite**, une excellente alternative pour travailler avec SQLite.
 
 ---
 
 ### **Étapes pour DB Browser for SQLite**
 
 #### **1. Créer une base de données SQLite**
-1. Ouvrez **DB Browser for SQLite**.
-2. Cliquez sur **"New Database"** (Nouvelle base de données).
-3. Choisissez un emplacement et un nom pour votre fichier SQLite (par exemple : `banque.db`).
-4. La base de données est créée, et vous pouvez commencer à définir vos tables.
+1. Ouvrir **DB Browser for SQLite**.
+2. Cliquer sur **"New Database"** (Nouvelle base de données).
+3. Choisisser un emplacement et un nom pour votre fichier SQLite (par exemple ico : `banque.db`).
+4. La base de données est créée, et on peut commencer à définir les tables.
 
 ---
 
 #### **2. Création des tables**
-
-Collez et exécutez ces commandes dans l'onglet **Exécuter SQL** :
 
 ##### **Table `clients`**
 ```sql
@@ -68,8 +68,6 @@ CREATE TABLE transactions (
 
 #### **3. Insertion des données**
 
-Collez et exécutez ces commandes pour insérer les données initiales :
-
 ##### **Données dans `clients`**
 ```sql
 INSERT INTO clients (nom, prenom, rue, ville, code_postal) VALUES
@@ -110,7 +108,6 @@ INSERT INTO transactions (id_compte, type_transaction, montant, date_transaction
 
 #### **4. Exécution des requêtes SQL**
 
-Vous pouvez exécuter les requêtes suivantes pour analyser vos données dans l'onglet **Exécuter SQL** :
 
 ##### **a. Afficher tous les comptes avec leurs clients associés**
 ```sql
@@ -194,7 +191,6 @@ WHERE clients.nom = 'Dupont' AND clients.prenom = 'Jean';
 
 #### **5. Ajout des transactions supplémentaires**
 
-Collez et exécutez ces commandes pour insérer de nouvelles transactions :
 ```sql
 INSERT INTO transactions (id_compte, type_transaction, montant, date_transaction) VALUES
 (1, 'Retrait', 200, '2024-11-21 09:00:00'),
@@ -208,5 +204,81 @@ INSERT INTO transactions (id_compte, type_transaction, montant, date_transaction
 
 ![Nombre](imgs/s10.png)
 
-### **Conclusion**
-Avec **DB Browser for SQLite**, vous pouvez facilement exécuter ces commandes et visualiser vos données dans les différents onglets. Si vous avez des problèmes avec une commande spécifique ou si vous avez besoin de plus de détails, n’hésitez pas à demander ! 😊
+
+#### **Requêtes intéressantes avec ces nouvelles transactions**
+### **a. Solde actuel de chaque compte basé sur les transactions**
+Le solde est calculé en ajustant le solde initial avec les dépôts et retraits effectués.
+
+```sql
+SELECT 
+    comptes.id_compte,
+    comptes.type_compte,
+    comptes.solde AS solde_initial,
+    COALESCE(SUM(
+        CASE 
+            WHEN transactions.type_transaction = 'Dépôt' THEN transactions.montant
+            WHEN transactions.type_transaction = 'Retrait' THEN -transactions.montant
+        END
+    ), 0) AS ajustement,
+    comptes.solde + COALESCE(SUM(
+        CASE 
+            WHEN transactions.type_transaction = 'Dépôt' THEN transactions.montant
+            WHEN transactions.type_transaction = 'Retrait' THEN -transactions.montant
+        END
+    ), 0) AS solde_final
+FROM comptes
+LEFT JOIN transactions ON comptes.id_compte = transactions.id_compte
+GROUP BY comptes.id_compte;
+```
+
+![Nombre](imgs/s11.png)
+---
+
+### **b. Transactions d’un client spécifique (Jean Dupont)**
+Cette requête liste toutes les transactions associées à un client spécifique en fonction de son nom et prénom.
+
+```sql
+SELECT 
+    transactions.id_transaction,
+    transactions.type_transaction,
+    transactions.montant,
+    transactions.date_transaction,
+    comptes.type_compte,
+    comptes.id_compte
+FROM transactions
+JOIN comptes ON transactions.id_compte = comptes.id_compte
+JOIN client_compte ON comptes.id_compte = client_compte.id_compte
+JOIN clients ON client_compte.id_client = clients.id_client
+WHERE clients.nom = 'Dupont' AND clients.prenom = 'Jean';
+```
+![Nombre](imgs/s12.png)
+
+---
+
+### **c. Nombre total de transactions par type (Dépôt ou Retrait)**
+Cette requête compte les transactions de chaque type (Dépôt ou Retrait) et affiche également le montant total pour chaque type.
+
+```sql
+SELECT 
+    type_transaction,
+    COUNT(*) AS nombre_transactions,
+    SUM(montant) AS montant_total
+FROM transactions
+GROUP BY type_transaction;
+```
+![Nombre](imgs/s13.png)
+---
+
+### **d. Transactions dépassant un montant spécifique (par ex., 1000 €)**
+
+```sql
+SELECT 
+    transactions.id_transaction,
+    transactions.id_compte,
+    transactions.type_transaction,
+    transactions.montant,
+    transactions.date_transaction
+FROM transactions
+WHERE transactions.montant > 1000;
+```
+![Nombre](imgs/s14.png)
