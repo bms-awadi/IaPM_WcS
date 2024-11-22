@@ -1,5 +1,6 @@
 # SQL : Conception avec Merise
 
+![Nombre](imgs/sch.png)
 Cette quête est faite avec **DB Browser for SQLite**, une excellente alternative pour travailler avec SQLite.
 
 ---
