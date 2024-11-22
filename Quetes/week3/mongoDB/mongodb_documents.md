@@ -72,6 +72,7 @@ Après l'insertion, on peut vérifier les documents ajoutés avec la commande su
 ```javascript
 db.clients.find().pretty()
 ```
+![Nombre](md1.png)
 
 ### **2. Insertion dans la collection `comptes`**
 
@@ -99,6 +100,7 @@ db.comptes.insertMany([
   }
 ]);
 ```
+![Nombre](md2.png)
 
 ### **3. Insertion dans la collection `transactions`**
 
@@ -129,6 +131,7 @@ db.transactions.insertMany([
   }
 ]);
 ```
+![Nombre](md3.png)
 
 ### **4. Requêtes pour interroger les données**
 
@@ -148,12 +151,15 @@ db.comptes.aggregate([
 ]).pretty();
 ```
 
+![Nombre](md4.png)
+
 #### **b. Afficher les transactions d’un compte spécifique**
 Par exemple, pour le compte courant de Jean Dupont (`64738b1c57d0f20012c04abf`) :
 
 ```javascript
 db.transactions.find({ compteId: ObjectId("64738b1c57d0f20012c04abf") }).pretty();
 ```
+![Nombre](md5.png)
 
 #### **c. Calculer le total des dépôts pour un compte**
 Pour le compte courant de Jean Dupont (`64738b1c57d0f20012c04abf`), on peut filtrer et sommer les montants :
@@ -165,7 +171,7 @@ db.transactions.aggregate([
 ]);
 ```
 
----
+![Nombre](md6.png)
 
 #### **d. Vérifier le solde après les transactions**
 Simuler le solde final basé sur les transactions. Par exemple, pour le compte courant de Rayane Roger (`64738b1c57d0f20012c04ac1`) :
@@ -189,6 +195,7 @@ db.transactions.aggregate([
   }
 ]);
 ```
+![Nombre](md7.png)
 
 ### **Ajout de nouvelles transactions**
 
@@ -285,6 +292,7 @@ db.transactions.aggregate([
   }
 ]);
 ```
+![Nombre](md8.png)
 
 #### **b. Transactions d’un client spécifique (Jean Dupont)**
 Pour obtenir toutes les transactions associées à Jean Dupont, pour trouver ses comptes et filtrer les transactions :
@@ -296,6 +304,7 @@ db.comptes.aggregate([
   { $project: { _id: 0, type: 1, transactions: 1 } }
 ]);
 ```
+![Nombre](md9.png)
 
 #### **c. Nombre total de transactions par type (Dépôt ou Retrait)**
 Cette requête compte combien de dépôts et retraits ont été effectués pour tous les comptes :
@@ -311,8 +320,7 @@ db.transactions.aggregate([
   }
 ]);
 ```
-
----
+![Nombre](md10.png)
 
 #### **d. Transactions dépassant un montant spécifique (par ex., 1000 €)**
 Pour afficher toutes les transactions où le montant dépasse 1000 € :
@@ -320,3 +328,4 @@ Pour afficher toutes les transactions où le montant dépasse 1000 € :
 ```javascript
 db.transactions.find({ montant: { $gt: 1000 } }).pretty();
 ```
+![Nombre](md11.png)
