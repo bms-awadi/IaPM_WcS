@@ -1,7 +1,25 @@
+def print_multiplication_table(n):
+    print(f"Table de multiplication de {n} :")
+    for i in range(1, 11):
+        result = n * i
+        print(f"{n} x {i} = {result}")
+    print()  # Ligne vide pour séparer les tables
+
+def main():
+    print("Tables de multiplication de 1 à 10")
+    print("==================================")
+    
+    for number in range(1, 11):
+        print_multiplication_table(number)
+
+if __name__ == "__main__":
+    main()
+
+exit(0)
+
 from matplotlib import pyplot as plt
 import networkx as nx
 
-# Create the graph
 G = nx.DiGraph()
 
 # Add nodes
@@ -17,7 +35,7 @@ G.add_edge("Comptes", "Transactions", label="1,n")
 
 # Draw the graph
 plt.figure(figsize=(8, 6))
-pos = nx.spring_layout(G, seed=42)  # Set layout for consistency
+pos = nx.spring_layout(G, seed=42)
 nx.draw(
     G, pos, with_labels=True, node_size=3000, node_color="lightblue", font_size=10, font_weight="bold"
 )
