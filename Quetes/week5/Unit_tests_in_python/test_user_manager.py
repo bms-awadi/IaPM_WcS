@@ -40,3 +40,17 @@ class TestUserManager(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+"""
+python test_user_manager.py -v
+
+test_add_user (__main__.TestUserManager.test_add_user) ... ok
+test_delete_nonexistent_user (__main__.TestUserManager.test_delete_nonexistent_user) ... ok
+test_delete_user (__main__.TestUserManager.test_delete_user) ... ok
+test_skipped (__main__.TestUserManager.test_skipped) ... skipped 'Skipping this test'
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+OK (skipped=1) 
+"""
