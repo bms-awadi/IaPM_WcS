@@ -3,36 +3,37 @@ import seaborn as sns
 from PIL import Image
 import os
 
-# Définir votre prénom en variable
-PRENOM = "VOTRE_PRENOM"
-
-# Charger le dataset taxis de seaborn (non utilisé ici mais pour respecter la demande)
-taxis = sns.load_dataset('taxis')
-
-# Définir les arrondissements fictifs et les images correspondantes
-arrondissements = { 'Brooklyn': 'imgs/brooklyn.jpg', 
-                   'Manhattan': 'imgs/manhattan.jpg', 
-                   'Bronx': 'imgs/bronx.jpg', 
-                   'Queens': 'imgs/queens.jpg', 
-                   'nan': 'imgs/default.jpg' }
-
-# Fonction pour obtenir l'image en fonction de l'arrondissement
-def get_image_path(arrondissement):
-    return arrondissements.get(arrondissement, 'imgs/default.jpg')
 
 # Titre de l'application
+PRENOM = "Awadi"
 st.title(f"Bienvenue sur le site web de {PRENOM}")
 
-# Sélection de l'arrondissement
-arrondissement = st.selectbox("Indiquez votre arrondissement de récupération", options=list(arrondissements.keys()))
+# Charger le dataset taxis
+taxis = sns.load_dataset('taxis')
 
-# Afficher l'arrondissement choisi
-st.write(f"Tu as choisis: {arrondissement}")
+# Obtenir la liste des zones de récupération
+zones = taxis["pickup_zone"].unique()
 
-# Afficher l'image correspondante
-image_path = get_image_path(arrondissement)
-if os.path.exists(image_path):
-    image = Image.open(image_path)
-    st.image(image, caption=arrondissement, use_container_width=True)
+# Sélection de la zone de récupération
+option = st.selectbox("Indiquez votre arrondissement de récupération", zones)
+
+# Afficher la zone de récupération choisie
+st.write(f"Tu as choisi : {option}")
+
+image_dict = {
+    "Lenox Hill West": "Lenox Hill West.jpg",
+    "Upper West Side South": "Upper West Side South.jpg",
+    "Alphabet City": "Alphabet City.jpg",
+    "Hudson Sq": "Hudson Sq.jpg",
+    "Midtown East": "Midtown East.jpg",
+}
+
+if option in image_dict:
+    image_path = os.path.join("./imgs", image_dict[option])
+    if os.path.exists(image_path):
+        image = Image.open(image_path)
+        st.image(image, caption=option, use_container_width=True)
+    else:
+        st.write("Image non trouvée")
 else:
-    st.write("Image non trouvée")
+    st.write("Aucune image disponible pour cette zone")
