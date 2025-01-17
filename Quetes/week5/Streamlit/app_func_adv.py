@@ -11,10 +11,11 @@ def check_credentials(username, password, df):
 # Fonction pour mettre à jour les tentatives de connexion échouées
 def update_failed_attempts(username, df):
     df.loc[df['name'] == username, 'failed_login_attemps'] += 1
-    df.to_csv('main/Quetes/week5/Streamlit/users.csv', index=False)
+    df = pd.read_csv('/mount/src/iapm_wcs/Quetes/week5/Streamlit/users.csv')
 
 # Charger les données des utilisateurs
-df = pd.read_csv('main/Quetes/week5/Streamlit/users.csv')
+df = pd.read_csv('/mount/src/iapm_wcs/Quetes/week5/Streamlit/users.csv')
+
 
 # Initialiser la session state si elle n'existe pas
 if 'logged_in' not in st.session_state:
@@ -70,3 +71,4 @@ else:
 
         with col3:
             st.image("./imgs/chat3.jpg")
+
