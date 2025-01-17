@@ -56,7 +56,7 @@ else:
     # Afficher la page d'accueil
     if st.session_state['current_page'] == 'accueil':
         st.title("Bienvenue sur ma page")
-        st.image("./imgs/bravo.jpg")
+        st.image("/mount/src/iapm_wcs/Quetes/week5/Streamlit/imgs/bravo.jpg")
 
     # Afficher la page des photos du chat
     if st.session_state['current_page'] == 'photos':
@@ -64,11 +64,11 @@ else:
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            st.image("./imgs/chat1.jpg")
+            st.image("/mount/src/iapm_wcs/Quetes/week5/Streamlit/imgs/chat1.jpg")
 
         with col2:
-            st.image("./imgs/chat2.jpg")
+            st.image("/mount/src/iapm_wcs/Quetes/week5/Streamlit/imgs/chat2.jpg")
 
         with col3:
-            st.image("./imgs/chat3.jpg")
+            st.image("/mount/src/iapm_wcs/Quetes/week5/Streamlit/imgs/chat3.jpg")
 
