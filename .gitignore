@@ -7,3 +7,6 @@
 bokeh_html/
 Plotly_html/
 projetfilrouge/
+
+pyproject.toml
+poetry.lock
