@@ -14,7 +14,7 @@ def update_failed_attempts(username, df):
     df.to_csv('iapm_wcs/main/Quetes/week5/Streamlit/users.csv', index=False)
 
 # Charger les données des utilisateurs
-df = pd.read_csv('users.csv')
+df = pd.read_csv('iapm_wcs/main/Quetes/week5/Streamlit/users.csv')
 
 # Initialiser la session state si elle n'existe pas
 if 'logged_in' not in st.session_state:
