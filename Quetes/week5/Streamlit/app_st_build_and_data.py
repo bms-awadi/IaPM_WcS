@@ -3,57 +3,52 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Charger le dataset
-@st.cache_data
-def load_data():
-    # Remplacez 'cars.csv' par le chemin de votre dataset
-    data = pd.read_csv('cars.csv')
-    # Nettoyer la colonne 'continent'
-    data['continent'] = data['continent'].str.strip()
-    return data
+# Charger les données depuis un fichier CSV
+def load_data(file_path):
+    df = pd.read_csv(file_path)
+    # Nettoyer les données
+    df['continent'] = df['continent'].str.strip()
+    return df
 
-data = load_data()
+# Interface pour télécharger le fichier CSV
+uploaded_file = st.file_uploader("Charger votre fichier CSV", type=["csv"])
 
-# Vérifier les noms des colonnes
-# Interface utilisateur
-st.title('Analyse des Voitures')
+if uploaded_file is not None:
+    # Charger les données
+    df = load_data(uploaded_file)
 
-# Filtrer par région
-region = st.sidebar.selectbox('Sélectionnez une région', ['US', 'Europe', 'Japan'])
+    # Titre de l'application
+    st.title("Analyse des données des voitures")
 
-# Vérifier si la colonne 'continent' existe
-if 'continent' in data.columns:
-    filtered_data = data[data['continent'] == region]
+    # Filtrer les données par région
+    regions = df["continent"].unique()
+    selected_region = st.sidebar.selectbox("Sélectionnez une région", regions)
+    filtered_df = df[df["continent"] == selected_region]
+
+    # Afficher les données filtrées
+    st.write(f"Données pour la région : {selected_region}")
+    st.write(filtered_df)
+
+    # Analyse de corrélation
+    st.subheader("Matrice de corrélation")
+    numeric_df = filtered_df.select_dtypes(include=["float64", "int64"])
+    corr = numeric_df.corr()
+
+    fig, ax = plt.subplots()
+    sns.heatmap(corr, annot=True, cmap="coolwarm", ax=ax)
+    st.pyplot(fig)
+
+    # Distribution des variables
+    st.subheader("Distribution des variables")
+    for column in numeric_df.columns:
+        fig, ax = plt.subplots()
+        sns.histplot(numeric_df[column], kde=True, ax=ax)
+        plt.title(f"Distribution de {column}")
+        st.pyplot(fig)
+
+    # Commentaires
+    st.subheader("Commentaires")
+    st.write("La matrice de corrélation montre les relations linéaires entre les différentes variables.")
+    st.write("Les graphiques de distribution permettent de visualiser la répartition des valeurs pour chaque variable.")
 else:
-    st.error("La colonne 'continent' n'existe pas dans le dataset.")
-    filtered_data = data  # Utiliser tout le dataset si la colonne 'continent' n'existe pas
-
-# Analyse de corrélation
-st.subheader('Matrice de corrélation')
-corr = filtered_data.corr()
-
-fig, ax = plt.subplots(figsize=(10, 8))
-sns.heatmap(corr, annot=True, cmap='coolwarm', ax=ax)
-st.pyplot(fig)
-
-# Analyse de distribution
-st.subheader('Distribution de la consommation de carburant (mpg)')
-
-fig, ax = plt.subplots(figsize=(10, 6))
-sns.histplot(filtered_data['mpg'], kde=True, ax=ax)
-st.pyplot(fig)
-
-st.subheader('Distribution de la puissance (hp)')
-
-fig, ax = plt.subplots(figsize=(10, 6))
-sns.histplot(filtered_data['hp'], kde=True, ax=ax)
-st.pyplot(fig)
-
-# Commentaires explicatifs
-st.subheader('Commentaires')
-st.write("La matrice de corrélation montre les relations linéaires entre les différentes variables du dataset.")
-st.write("Le graphique de distribution de la consommation de carburant (mpg) montre comment les valeurs de consommation de carburant sont réparties dans la région sélectionnée.")
-st.write("Le graphique de distribution de la puissance (hp) montre comment les valeurs de puissance sont réparties dans la région sélectionnée.")
-
-# Publier l'application sur Streamlit Sharing
-# Remplacez 'wilder/streamlit_app/my_streamlit_app.py' par votre propre chemin
+    st.write("Veuillez charger un fichier CSV pour commencer l'analyse.")
