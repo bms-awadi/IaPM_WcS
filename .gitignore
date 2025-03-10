@@ -2,6 +2,9 @@
 # Ignorer mon environnement virtuel
 /env_wcs
 
+# Ignorer les données
+data/
+
 # Ignorer tous les fichiers cachés
 .*
 bokeh_html/
