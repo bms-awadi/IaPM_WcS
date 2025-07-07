@@ -1,6 +1,7 @@
 /node_modules
 # Ignorer mon environnement virtuel
 /env_wcs
+venv_dbt
 
 # Ignorer les données
 data/
