@@ -100,15 +100,29 @@ dbt run
 
 ---
 
-## 📂 Contenu du projet
+## Initialisation de la base de données avec sqlalchemy
 
-* `dbt_project.yml` : configuration du projet
-* `models/` : transformations SQL
-* `dbt_quest.db` : base de données SQLite générée
-* `README.md` : documentation du projet
+La suite projet utilise une base de données SQLite pour stocker les données nécessaires. 
+Suivez les étapes ci-dessous pour initialiser la base de données et importer les données.
 
----
+### - Étapes pour initialiser la base de données
+Assurez-vous d'avoir installé les dépendances nécessaires :
 
-## 📊 Visualisation
+```bash
+pip install pandas sqlalchemy
+```
 
-Ouvrir `dbt_quest.db` avec **DB Browser for SQLite** et consulter la table ou la vue `hello_world`.
+### - Exécutez le script init_db.py pour créer la base de données et importer les données :
+
+```bash
+python init_db.py
+```
+
+Une fois le script exécuté, un fichier dbt_quest.db sera créé dans le répertoire du projet. Ce fichier contient les tables suivantes :
+
+* raw_customers
+* raw_items
+* raw_orders
+* raw_products
+* raw_stores
+* raw_supplies
