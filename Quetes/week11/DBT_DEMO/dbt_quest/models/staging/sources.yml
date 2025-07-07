@@ -3,7 +3,25 @@ version: 2
 sources:
   - name: dbt_quest
     schema: main
+    description: "Base SQLite contenant les données brutes utilisées dans le projet dbt_quest."
+
     tables:
       - name: raw_customers
-      - name: raw_orders
+        description: "Liste des clients ayant passé au moins une commande."
+        columns:
+          - name: id
+            description: "Identifiant unique du client."
+          - name: name
+            description: "Nom complet du client."
 
+      - name: raw_orders
+        description: "Commandes passées par les clients dans différents magasins."
+        columns:
+          - name: id
+            description: "Identifiant unique de la commande."
+          - name: customer
+            description: "Clé étrangère vers le client (raw_customers.id)."
+          - name: ordered_at
+            description: "Date et heure de la commande."
+          - name: store_id
+            description: "Identifiant du magasin ayant enregistré la commande."
