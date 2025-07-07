@@ -2,13 +2,24 @@ version: 2
 
 models:
   - name: stg_orders
-    description: "Vue de staging des commandes issues de la table raw_orders"
+    description: "Vue de staging des commandes"
     columns:
       - name: order_id
         description: "Identifiant unique de la commande"
+        tests:
+          - not_null
+          - unique
       - name: customer_id
-        description: "Identifiant du client ayant passé la commande"
+        description: "Identifiant du client lié à la commande"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+
       - name: ordered_at
-        description: "Date et heure de la commande"
+        description: "Date de la commande"
+        tests:
+          - not_null
       - name: store_id
-        description: "Identifiant du magasin où la commande a été passée"
+        description: "Magasin concerné"
