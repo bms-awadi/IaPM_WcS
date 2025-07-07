@@ -1,4 +1,4 @@
-# Projet DBT - Wild Code School – Quête 1.2 ETL/ELT
+# Projet DBT - Quête 1.2 ETL/ELT
 
 Ce projet a été réalisé dans le cadre de la quête **1.2 ETL/ELT - DBT Introduction** de la Wild Code School.  
 Il montre comment utiliser **DBT Core** en local avec une base de données **SQLite**, dans un processus ELT.
