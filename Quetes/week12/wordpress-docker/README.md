@@ -10,7 +10,7 @@ wordpress-docker/
 └── README.md
 ```
 
-## 🚀 Lancer l'application
+## Lancer l'application
 
 1. Cloner le projet :
    ```bash
@@ -23,7 +23,7 @@ wordpress-docker/
    docker-compose up -d
    ```
 
-## 🔧 Variables d'environnement
+## Variables d'environnement
 
 Les variables sont stockées dans le fichier `.env` :
 
@@ -33,15 +33,9 @@ Les variables sont stockées dans le fichier `.env` :
 - `MYSQL_PASSWORD`
 - `WORDPRESS_DB_*`
 
-> ⚠️ Ne stockez jamais de secrets sensibles ici pour un usage en production.
 
-## 🛑 Arrêter
+## Arrêter
 
 ```bash
 docker-compose down
 ```
-
-## ✅ Notes
-
-- Utilise deux réseaux `frontend` et `backend`
-- Les données MySQL et WordPress sont persistées avec `db_data` et `wp_data`
