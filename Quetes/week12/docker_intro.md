@@ -1,6 +1,6 @@
-# 🐳 Défi Docke - Introduction
+# Défi Docke - Introduction
 
-## 💪 Objectif
+## Objectif
 
 Exécuter deux conteneurs :
 - Un serveur **nginx** exposé sur le port **80**
@@ -8,9 +8,8 @@ Exécuter deux conteneurs :
 
 Les conteneurs doivent être exécutés en mode détaché avec des noms personnalisés (`mon-nginx` et `mon-mysql`).
 
----
 
-## 📸 Capture 1 : Conteneurs en cours d'exécution
+## Conteneurs en cours d'exécution
 
 > Inclure ici une capture d’écran de la commande `docker ps` montrant les deux conteneurs actifs
 
@@ -18,7 +17,7 @@ Les conteneurs doivent être exécutés en mode détaché avec des noms personna
 
 ---
 
-## ✅ Vérifications
+## Vérifications
 
 | Conteneur     | Statut attendu | Port              | ✔️ |
 |---------------|----------------|-------------------|----|
@@ -27,7 +26,7 @@ Les conteneurs doivent être exécutés en mode détaché avec des noms personna
 
 ---
 
-## 🧹 Nettoyage
+## Nettoyage
 
 Commandes utilisées pour arrêter et supprimer les conteneurs :
 
