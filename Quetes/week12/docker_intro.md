@@ -35,19 +35,3 @@ Commandes utilisées pour arrêter et supprimer les conteneurs :
 docker stop mon-nginx mon-mysql
 docker rm mon-nginx mon-mysql
 ```
-
----
-
-## 📦 Images utilisées
-
-```bash
-docker images
-```
-
-> (Ajoute ici une capture si nécessaire)
-
----
-
-## ✍️ Commentaire (optionnel)
-
-Indique ici s’il y a eu des difficultés, des remarques ou des ajustements nécessaires (ex: port MySQL modifié).
